@@ -22,7 +22,6 @@ class Solution {
                 } else {
                     break; // 만약 안 겹치면 다음 순서로
                 }
-
             }
         }
         return answer;
