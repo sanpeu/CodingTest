@@ -1,6 +1,8 @@
 package programmers.p42584;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class StockPerSec {
     public static void main(String[] args) {
@@ -16,15 +18,21 @@ public class StockPerSec {
 
 class Solution {
     public int[] solution(int[] prices) {
-        int[] answer = new int[prices.length];
+        List<Integer> list = new ArrayList<>();
+        int count;
 
         for (int i = 0; i < prices.length-1; ++i) { // 마지막은 무조건 0
+            count = 0;
             for (int j = i+1; j < prices.length; ++j) {
-                answer[i] += 1;
+                ++count;
                 if (prices[i] > prices[j]) break;
             }
+            list.add(count);
         }
+        list.add(0);
 
-        return answer;
+        return list.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
     }
 }
