@@ -5,41 +5,61 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /*
-    AUTOMATA PROBLEM, 5525
+    KMP PROBLEM, 5525
     title: IOIOI
  */
 public class IOIOI {
+    public static String makePattern(int N) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < N; ++i)
+            sb.append("IO");
+        sb.append("I");
+        return sb.toString();
+    }
+
+    public static int[] preprocessing(String pattern) {
+        int j = 0, k = -1;
+        int[] pi = new int[pattern.length() + 1]; // 아예 틀린 경우 포함
+        pi[0] = -1;
+
+        while (j < pattern.length()) {
+            if (k == -1 || pattern.charAt(j) == pattern.charAt(k))
+                pi[++j] = ++k;
+            else k = pi[k];
+        }
+
+        return pi;
+    }
+
+    public static int findCount(String str, String pattern) {
+        int count = 0;
+        int[] pi = preprocessing(pattern);
+
+        int j = 0, k = 0;
+        while (j < str.length()) {
+            if (k == -1 || str.charAt(j) == pattern.charAt(k)) {
+                ++j;
+                ++k;
+            } else k = pi[k];
+
+            if (k == pattern.length()) {
+                ++count;
+                k = pi[k];
+            }
+        }
+
+        return count;
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(reader.readLine());
         int M = Integer.parseInt(reader.readLine());
         String str = reader.readLine();
 
-        int stateLength = 2*N + 2;
-        final int I = 0, O = 1;
-        int[][] automata = new int[2][stateLength];
-        for (int i = 0; i < stateLength; ++i) {
-            automata[I][i] = 1;
-            automata[O][i] = 0;
+        String pattern = makePattern(N);
 
-            if (i%2 == 0)
-                automata[I][i] = i + 1;
-            else
-                automata[O][i] = i + 1;
-        }
-        automata[O][stateLength-1] = 2*N; // 2*N이 마지막 상태(완성)의 전 상태
-
-        // 밑에는 고정
-        int count = 0;
-        int state = 0;
-        for (int i = 0; i < M; ++i) {
-            switch (str.charAt(i)) {
-                case 'I': state = automata[I][state]; break;
-                case 'O': state = automata[O][state]; break;
-            }
-            if (state == 2*N + 1) ++count;
-        }
-
-        System.out.println(count);
+        System.out.println(findCount(str, pattern));
+        reader.close();
     }
 }
