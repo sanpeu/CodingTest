@@ -4,25 +4,30 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
 
 public class MedianFinder {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(reader.readLine());
+        List<Integer> numbers = new ArrayList<>();
 
-        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < N; ++i)
+            numbers.add(Integer.parseInt(reader.readLine()));
+        reader.close();
+
+        Integer median = 0;
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; ++i) {
-            int k = Integer.parseInt(reader.readLine());
-            list.add(k);
+            PriorityQueue<Integer> heap = new PriorityQueue<>(numbers.subList(0, i+1));
+            double iterationCount = heap.size()/2.0;
 
-            if (list.size() == 3) {
-                list.remove(Collections.min(list));
-                list.remove(Collections.max(list));
-                System.out.println(list.get(0));
-            } else {
-                System.out.println(Collections.min(list));
-            }
+            for (int j = 0; j < iterationCount; ++j)
+                median = heap.poll();
+            sb.append(median).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
