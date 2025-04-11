@@ -12,7 +12,10 @@ import java.util.PriorityQueue;
  */
 
 public class MedianFinder {
-    public static void balanceQueue(PriorityQueue smallerHeap, PriorityQueue biggerHeap) {
+    public static void balanceQueue(
+            PriorityQueue<Integer> smallerHeap,
+            PriorityQueue<Integer> biggerHeap
+    ) {
         // smaller만 너무 커지는 것 조절
         while (smallerHeap.size() - biggerHeap.size() > 1)
             biggerHeap.offer(smallerHeap.poll());
@@ -22,33 +25,35 @@ public class MedianFinder {
             smallerHeap.offer(biggerHeap.poll());
     }
 
-    public static StringBuilder findMedian(Integer[] numbers) {
-        PriorityQueue<Integer> biggerHeap = new PriorityQueue<>();
-        PriorityQueue<Integer> smallerHeap = new PriorityQueue<>(Comparator.reverseOrder());
-        StringBuilder sb = new StringBuilder();
+    public static void findMedian(
+            StringBuilder sb,
+            int number,
+            PriorityQueue<Integer> smallerHeap,
+            PriorityQueue<Integer> biggerHeap
+    ) {
+        if (!smallerHeap.isEmpty() && number > smallerHeap.peek())
+            biggerHeap.offer(number);
+        else
+            smallerHeap.offer(number);
 
-        for (int i = 0; i < numbers.length; ++i) {
-            if (!smallerHeap.isEmpty() && numbers[i] > smallerHeap.peek())
-                biggerHeap.offer(numbers[i]);
-            else
-                smallerHeap.offer(numbers[i]);
-
-            balanceQueue(smallerHeap, biggerHeap);
-            sb.append(smallerHeap.peek()).append("\n");
-        }
-
-        return sb;
+        balanceQueue(smallerHeap, biggerHeap);
+        sb.append(smallerHeap.peek()).append("\n");
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(reader.readLine());
-        Integer[] numbers = new Integer[N];
 
-        for (int i = 0; i < N; ++i)
-            numbers[i] = Integer.parseInt(reader.readLine());
+        PriorityQueue<Integer> smallerHeap = new PriorityQueue<>(Comparator.reverseOrder());
+        PriorityQueue<Integer> biggerHeap = new PriorityQueue<>();
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < N; ++i) {
+            int number = Integer.parseInt(reader.readLine());
+            findMedian(sb, number, smallerHeap, biggerHeap);
+        }
         reader.close();
 
-        System.out.println(findMedian(numbers));
+        System.out.println(sb);
     }
 }
