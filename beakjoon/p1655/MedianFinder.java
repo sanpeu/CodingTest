@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/*
+    beakjoon p1655
+    min heap, max heap
+ */
+
 public class MedianFinder {
     public static void balanceQueue(PriorityQueue smallerHeap, PriorityQueue biggerHeap) {
         // smaller만 너무 커지는 것 조절
@@ -17,20 +22,12 @@ public class MedianFinder {
             smallerHeap.offer(biggerHeap.poll());
     }
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(reader.readLine());
-        Integer[] numbers = new Integer[N];
-
+    public static StringBuilder findMedian(Integer[] numbers) {
         PriorityQueue<Integer> biggerHeap = new PriorityQueue<>();
         PriorityQueue<Integer> smallerHeap = new PriorityQueue<>(Comparator.reverseOrder());
-
-        for (int i = 0; i < N; ++i)
-            numbers[i] = Integer.parseInt(reader.readLine());
-        reader.close();
-
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < N; ++i) {
+
+        for (int i = 0; i < numbers.length; ++i) {
             if (!smallerHeap.isEmpty() && numbers[i] > smallerHeap.peek())
                 biggerHeap.offer(numbers[i]);
             else
@@ -40,6 +37,18 @@ public class MedianFinder {
             sb.append(smallerHeap.peek()).append("\n");
         }
 
-        System.out.println(sb);
+        return sb;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(reader.readLine());
+        Integer[] numbers = new Integer[N];
+
+        for (int i = 0; i < N; ++i)
+            numbers[i] = Integer.parseInt(reader.readLine());
+        reader.close();
+
+        System.out.println(findMedian(numbers));
     }
 }
