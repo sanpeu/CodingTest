@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
+/*
+    Hotter Programmers 42626
+    title: 더 맵게
+ */
 class Solution {
     public int solution(int[] scoville, int K) {
         int answer = 0;
