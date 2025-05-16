@@ -7,8 +7,6 @@ import java.util.StringTokenizer;
 public class SumOfSubsequence {
     static int count = 0;
     public static void findNumberInSubsequence(int[] numbers, int index, int targetSum, int currentSum, boolean isContains) {
-//        if (isContains && currentSum == targetSum)
-//            ++count;
         if (index == numbers.length) {
             if (isContains && currentSum == targetSum)
                 ++count;
