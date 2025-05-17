@@ -1,5 +1,6 @@
 ### IntelliJ IDEA ###
 out/
+.idea
 
 ### Eclipse ###
 .apt_generated
@@ -51,3 +52,4 @@ replay_pid*
 
 .gitignore
 CodingTest.iml
+src/test
