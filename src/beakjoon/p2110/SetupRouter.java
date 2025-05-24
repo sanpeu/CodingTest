@@ -38,16 +38,18 @@ public class SetupRouter {
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer tokenizer = new StringTokenizer(reader.readLine(), " ");
-        int N = Integer.parseInt(tokenizer.nextToken());
-        int C = Integer.parseInt(tokenizer.nextToken());
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer tokenizer = new StringTokenizer(reader.readLine(), " ");
+//        int N = Integer.parseInt(tokenizer.nextToken());
+//        int C = Integer.parseInt(tokenizer.nextToken());
+//
+//        int[] houseLocation = new int[N];
+//        for (int i = 0; i < N; ++i)
+//            houseLocation[i] = Integer.parseInt(reader.readLine());
+//        reader.close();
 
-        int[] houseLocation = new int[N];
-        for (int i = 0; i < N; ++i)
-            houseLocation[i] = Integer.parseInt(reader.readLine());
-        reader.close();
-
+        int[] houseLocation = new int[]{1, 2, 8, 4, 9};
+        int C = 3;
         new SetupRouter(houseLocation, C);
     }
 }
