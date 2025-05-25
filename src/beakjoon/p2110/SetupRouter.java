@@ -15,7 +15,7 @@ public class SetupRouter {
         this.houseLocation = houseLocation;
         this.C = C;
 
-//        System.out.println(parametricSearch_max(1, houseLocation[houseLocation.length-1] - houseLocation[0]));
+        System.out.println(parametricSearch_max(1, houseLocation[houseLocation.length-1] - houseLocation[0]));
     }
 
     public int compare(int middle) {
@@ -48,24 +48,16 @@ public class SetupRouter {
     }
 
     public static void main(String[] args) throws IOException {
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-//        StringTokenizer tokenizer = new StringTokenizer(reader.readLine(), " ");
-//        int N = Integer.parseInt(tokenizer.nextToken());
-//        int C = Integer.parseInt(tokenizer.nextToken());
-//
-//        int[] houseLocation = new int[N];
-//        for (int i = 0; i < N; ++i)
-//            houseLocation[i] = Integer.parseInt(reader.readLine());
-//        reader.close();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer tokenizer = new StringTokenizer(reader.readLine(), " ");
+        int N = Integer.parseInt(tokenizer.nextToken());
+        int C = Integer.parseInt(tokenizer.nextToken());
 
-        int[] houseLocation = new int[]{1, 2, 8, 4, 9};
-        int C = 3;
+        int[] houseLocation = new int[N];
+        for (int i = 0; i < N; ++i)
+            houseLocation[i] = Integer.parseInt(reader.readLine());
+        reader.close();
+
         SetupRouter setupRouter = new SetupRouter(houseLocation, C);
-//        System.out.println(setupRouter.compare(1));
-//        System.out.println(setupRouter.compare(2));
-//        System.out.println(setupRouter.compare(3));
-//        System.out.println(setupRouter.compare(4));
-//        System.out.println(setupRouter.compare(5));
-        System.out.println(setupRouter.compare(99));
     }
 }
