@@ -15,13 +15,12 @@ public class SetupRouter {
         this.houseLocation = houseLocation;
         this.C = C;
 
-        System.out.println(parametricSearch_max(2, houseLocation.length));
+//        System.out.println(parametricSearch_max(1, houseLocation[houseLocation.length-1] - houseLocation[0]));
     }
 
     public int compare(int middle) {
         int count = 1; // 0번은 무조건 설치라고 가정
         int preRouter = this.houseLocation[0];
-//        int stride = this.houseLocation.length % C;
 
         for (int i = 1; i < this.houseLocation.length; ++i) {
             int current = this.houseLocation[i];
@@ -38,8 +37,8 @@ public class SetupRouter {
     public int parametricSearch_max(int left, int right) {
         while (left <= right) {
             int middle = left + (right - left)/2;
-            int g_x = compare(middle);
-            if (g_x <= 0) // g_x의 결과가 작거나 같으면 오른쪽을 본다.
+            int g_x = compare(middle); // x가 정답보다 작으면 음수
+            if (g_x <= 0) // g_x의 결과를 0과 비교하여 작거나 같으면 오른쪽을 본다.
                 left = middle + 1;
             else
                 right = middle - 1;
@@ -49,18 +48,24 @@ public class SetupRouter {
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer tokenizer = new StringTokenizer(reader.readLine(), " ");
-        int N = Integer.parseInt(tokenizer.nextToken());
-        int C = Integer.parseInt(tokenizer.nextToken());
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer tokenizer = new StringTokenizer(reader.readLine(), " ");
+//        int N = Integer.parseInt(tokenizer.nextToken());
+//        int C = Integer.parseInt(tokenizer.nextToken());
+//
+//        int[] houseLocation = new int[N];
+//        for (int i = 0; i < N; ++i)
+//            houseLocation[i] = Integer.parseInt(reader.readLine());
+//        reader.close();
 
-        int[] houseLocation = new int[N];
-        for (int i = 0; i < N; ++i)
-            houseLocation[i] = Integer.parseInt(reader.readLine());
-        reader.close();
-
-//        int[] houseLocation = new int[]{1, 2, 8, 4, 9};
-//        int C = 3;
-        new SetupRouter(houseLocation, C);
+        int[] houseLocation = new int[]{1, 2, 8, 4, 9};
+        int C = 3;
+        SetupRouter setupRouter = new SetupRouter(houseLocation, C);
+//        System.out.println(setupRouter.compare(1));
+//        System.out.println(setupRouter.compare(2));
+//        System.out.println(setupRouter.compare(3));
+//        System.out.println(setupRouter.compare(4));
+//        System.out.println(setupRouter.compare(5));
+        System.out.println(setupRouter.compare(99));
     }
 }
