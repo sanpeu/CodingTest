@@ -1,29 +1,48 @@
 package programmers.p49189;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Solution {
     int n;
-    List<List<Integer>> neighbor;
+    List<List<Integer>> neighbors;
 
     public Solution() {
-        neighbor = new ArrayList<>();
+        neighbors = new ArrayList<>();
     }
 
     public int solution(int n, int[][] edges) {
         this.n = n;
         for (int i = 0; i <= n; ++i)
-            neighbor.add(new ArrayList<>()); // 0은 안씀, 1부터 n까지 사용
+            neighbors.add(new ArrayList<>()); // 0은 안씀, 1부터 n까지 사용
 
         for (int[] edge : edges) {
             int a = edge[0], b = edge[1];
-            neighbor.get(a).add(b);
-            neighbor.get(b).add(a);
+            neighbors.get(a).add(b);
+            neighbors.get(b).add(a);
         }
 
-        System.out.println(neighbor);
+//        System.out.println(neighbors);
+        System.out.println(Arrays.toString(BFS(1)));
         return 0;
+    }
+
+    private int[] BFS(int start) {
+        int[] distances = new int[n+1]; // n까지포함
+        Arrays.fill(distances, -1);
+        Queue<int[]> queue = new ArrayDeque<>();
+        queue.add(new int[]{start, 0});
+
+        while (!queue.isEmpty()) {
+            int[] u = queue.remove();
+            int node = u[0], distance = u[1];
+
+            if (distances[node] > -1) continue;
+            distances[node] = distance;
+
+            for (Integer neighbor : neighbors.get(node))
+                queue.add(new int[]{neighbor, distance+1});
+        }
+        return distances;
     }
 }
 
