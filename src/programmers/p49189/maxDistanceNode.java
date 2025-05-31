@@ -21,11 +21,7 @@ class Solution {
             neighbors.get(b).add(a);
         }
 
-//        System.out.println(neighbors);
-//        int[] distances = BFS(1);
-        System.out.println(getMaxCount(new int[]{1, 2, 3, 4, -99, -4, 77, 77, 77, 9, 77}));
-        // 예상결과 4
-        return 0;
+        return getMaxCount(BFS(1));
     }
 
     private int[] BFS(int start) {
@@ -54,7 +50,7 @@ class Solution {
             if (array[i] > max) {
                 max = array[i];
                 count = 1;
-            } else if(array[i] == max)
+            } else if (array[i] == max)
                 ++count;
         }
         return count;
