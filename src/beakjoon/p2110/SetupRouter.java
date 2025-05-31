@@ -58,6 +58,6 @@ public class SetupRouter {
             houseLocation[i] = Integer.parseInt(reader.readLine());
         reader.close();
 
-        SetupRouter setupRouter = new SetupRouter(houseLocation, C);
+       new SetupRouter(houseLocation, C);
     }
 }
