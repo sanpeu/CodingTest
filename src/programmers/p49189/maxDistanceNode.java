@@ -22,7 +22,9 @@ class Solution {
         }
 
 //        System.out.println(neighbors);
-        System.out.println(Arrays.toString(BFS(1)));
+//        int[] distances = BFS(1);
+        System.out.println(getMaxCount(new int[]{1, 2, 3, 4, -99, -4, 77, 77, 77, 9, 77}));
+        // 예상결과 4
         return 0;
     }
 
@@ -43,6 +45,19 @@ class Solution {
                 queue.add(new int[]{neighbor, distance+1});
         }
         return distances;
+    }
+
+    private int getMaxCount(int[] array) {
+        int max = array[0];
+        int count = 1; // 0인덱스가 가장 크다고 생각
+        for (int i = 1; i < array.length; ++i) {
+            if (array[i] > max) {
+                max = array[i];
+                count = 1;
+            } else if(array[i] == max)
+                ++count;
+        }
+        return count;
     }
 }
 
