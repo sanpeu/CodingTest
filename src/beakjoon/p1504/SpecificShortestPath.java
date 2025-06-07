@@ -11,10 +11,26 @@ public class SpecificShortestPath {
     public SpecificShortestPath(List<List<int[]>> edges, int v1, int v2) {
         this.edges = edges;
 
-        int route1 = BFS(1, v1) + BFS(v1, v2) + BFS(v2, 4);
-        int route2 = BFS(1, v2) + BFS(v2, v1) + BFS(v1, 4);
+        int route1 = calculatorCost(new int[]{1, v1, v2, 4});
+        int route2 = calculatorCost(new int[]{1, v2, v1, 4});
+        int answer = 0;
 
-        System.out.println(Math.min(route1, route2));
+        answer = Math.min(route1, route2);
+        if (route1 == -1) answer = route2;
+        if (route2 == -1) answer = route1;
+        System.out.println(answer);
+    }
+
+    private int calculatorCost(int[] route) {
+        int totalCost = 0;
+        for (int i = 0; i < route.length-1; ++i) {
+            int r = BFS(route[i], route[i+1]);
+            if (r == -1)
+                return -1;
+            totalCost += r;
+        }
+
+        return totalCost;
     }
 
     private int BFS(int start, int goal) {
