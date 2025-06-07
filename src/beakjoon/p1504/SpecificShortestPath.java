@@ -11,11 +11,10 @@ public class SpecificShortestPath {
     public SpecificShortestPath(List<List<int[]>> edges, int v1, int v2) {
         this.edges = edges;
 
-        int route1 = calculatorCost(new int[]{1, v1, v2, 4});
-        int route2 = calculatorCost(new int[]{1, v2, v1, 4});
-        int answer = 0;
+        int route1 = calculatorCost(new int[]{1, v1, v2, edges.size()-1});
+        int route2 = calculatorCost(new int[]{1, v2, v1, edges.size()-1});
 
-        answer = Math.min(route1, route2);
+        int answer = Math.min(route1, route2);
         if (route1 == -1) answer = route2;
         if (route2 == -1) answer = route1;
         System.out.println(answer);
@@ -44,14 +43,14 @@ public class SpecificShortestPath {
             int node = u[0];
             int cost = u[1];
 
+            visited[node] = true;
             if (node == goal) return cost;
 
             for (int[] edge : edges.get(node)) {
                 int nextNode = edge[0];
                 int nextCost = edge[1];
-                if (!visited[nextNode] || nextNode == goal) {
+                if (!visited[nextNode]) {
                     queue.add(new int[]{nextNode, cost + nextCost});
-                    visited[nextNode] = true;
                 }
             }
         }
