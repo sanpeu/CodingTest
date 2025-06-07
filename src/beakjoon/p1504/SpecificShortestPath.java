@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -17,7 +18,7 @@ public class SpecificShortestPath {
         int E = Integer.parseInt(tokenizer.nextToken());
 
         List<List<int[]>> edges = new ArrayList<>();
-        for (int i = 0; i < N; ++i)
+        for (int i = 0; i <= N; ++i)
             edges.add(new ArrayList<>());
 
         for (int i = 0; i < E; ++i) {
@@ -30,7 +31,12 @@ public class SpecificShortestPath {
             edges.get(b).add(new int[]{a, cost});
         }
 
-        System.out.println(edges);
+        for (int i = 0; i < edges.size(); ++i) {
+            System.out.print(i + " -> ");
+            for (int[] edge : edges.get(i))
+                System.out.print(Arrays.toString(edge) + " ");
+            System.out.println();
+        }
         reader.close();
     }
 }
