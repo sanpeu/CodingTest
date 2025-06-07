@@ -8,10 +8,13 @@ import java.util.*;
 public class SpecificShortestPath {
     List<List<int[]>> edges;
 
-    public SpecificShortestPath(List<List<int[]>> edges) {
+    public SpecificShortestPath(List<List<int[]>> edges, int v1, int v2) {
         this.edges = edges;
 
-        System.out.println(BFS(1, 4));
+        int route1 = BFS(1, v1) + BFS(v1, v2) + BFS(v2, 4);
+        int route2 = BFS(1, v2) + BFS(v2, v1) + BFS(v1, 4);
+
+        System.out.println(Math.min(route1, route2));
     }
 
     private int BFS(int start, int goal) {
@@ -30,7 +33,7 @@ public class SpecificShortestPath {
             for (int[] edge : edges.get(node)) {
                 int nextNode = edge[0];
                 int nextCost = edge[1];
-                if (!visited[nextNode]) {
+                if (!visited[nextNode] || nextNode == goal) {
                     queue.add(new int[]{nextNode, cost + nextCost});
                     visited[nextNode] = true;
                 }
@@ -39,6 +42,7 @@ public class SpecificShortestPath {
 
         return -1;
     }
+
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine(), " ");
@@ -59,6 +63,10 @@ public class SpecificShortestPath {
             edges.get(b).add(new int[]{a, cost});
         }
 
+        tokenizer = new StringTokenizer(reader.readLine(), " ");
+        int v1 = Integer.parseInt(tokenizer.nextToken());
+        int v2 = Integer.parseInt(tokenizer.nextToken());
+
 //        for (int i = 0; i < edges.size(); ++i) {
 //            System.out.print(i + " -> ");
 //            for (int[] edge : edges.get(i))
@@ -67,6 +75,6 @@ public class SpecificShortestPath {
 //        }
         reader.close();
 
-        new SpecificShortestPath(edges);
+        new SpecificShortestPath(edges, v1, v2);
     }
 }
